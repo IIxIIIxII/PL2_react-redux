@@ -14,6 +14,7 @@ const Header = () => {
         <div className="logo">🐴 Пони-сайт на Redux 💖</div>
         <nav className="nav">
           <a href="/">Главная пони</a>
+          <a href="/todos">Todo список</a>
           <a href="#">О пони</a>
           <a href="#">Контакты пони</a>
           {!isAuth ? (

@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PoniesList from "./pages/PoniesList.jsx";
 import PonyDetail from "./pages/PonyDetail.jsx";
+import TodosList from "./pages/TodosList.jsx";
+import TodoDetail from "./pages/TodoDetail.jsx";
 import Home from "./pages/Home.jsx";
 import Counter from "./pages/Counter.jsx";
 import Register from "./pages/PonyRegister.jsx";
@@ -27,6 +29,8 @@ function App() {
       <Routes>
         <Route path="/" element={<PoniesList />} />
         <Route path="/ponies/:id" element={<PonyDetail />} />
+        <Route path="/todos" element={<TodosList />} />
+        <Route path="/todos/:id" element={<TodoDetail />} />
         <Route path="/counter" element={<Counter />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
