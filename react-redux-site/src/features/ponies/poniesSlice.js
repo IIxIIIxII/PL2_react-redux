@@ -53,11 +53,43 @@ const poniesSlice = createSlice({
         items: [],
         selectedPony: null,
         status: "idle",
-        error: null
+        error: null,
+        likes: {}, // {ponyId: count}
+        favorites: [], // array of ponyIds
+        ratings: {} // {ponyId: [ratings]}
     },
     reducers: {
         clearSelectedPony(state) {
             state.selectedPony = null;
+        },
+        addLike(state, action) {
+            const ponyId = action.payload;
+            if (!state.likes[ponyId]) {
+                state.likes[ponyId] = 0;
+            }
+            state.likes[ponyId] += 1;
+        },
+        removeLike(state, action) {
+            const ponyId = action.payload;
+            if (state.likes[ponyId] > 0) {
+                state.likes[ponyId] -= 1;
+            }
+        },
+        addToFavorites(state, action) {
+            const ponyId = action.payload;
+            if (!state.favorites.includes(ponyId)) {
+                state.favorites.push(ponyId);
+            }
+        },
+        removeFromFavorites(state, action) {
+            state.favorites = state.favorites.filter(id => id !== action.payload);
+        },
+        addRating(state, action) {
+            const { ponyId, rating } = action.payload;
+            if (!state.ratings[ponyId]) {
+                state.ratings[ponyId] = [];
+            }
+            state.ratings[ponyId].push(rating);
         }
     },
     extraReducers: (builder) => {
@@ -112,5 +144,13 @@ const poniesSlice = createSlice({
     }
 });
 
-export const { clearSelectedPony } = poniesSlice.actions;
+export const { clearSelectedPony, addLike, removeLike, addToFavorites, removeFromFavorites, addRating } = poniesSlice.actions;
+
+export const selectAverageRating = (state, ponyId) => {
+    const ratings = state.ponies.ratings[ponyId];
+    if (!ratings || ratings.length === 0) return 0;
+    const sum = ratings.reduce((a, b) => a + b, 0);
+    return sum / ratings.length;
+};
+
 export default poniesSlice.reducer;
