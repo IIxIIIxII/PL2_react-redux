@@ -1,45 +1,68 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import PoniesList from "./pages/PoniesList.jsx";
-import PonyDetail from "./pages/PonyDetail.jsx";
-import TodosList from "./pages/TodosList.jsx";
-import TodoDetail from "./pages/TodoDetail.jsx";
-import Home from "./pages/Home.jsx";
-import Counter from "./pages/Counter.jsx";
-import Register from "./pages/PonyRegister.jsx";
-import Login from "./pages/PonyLogin.jsx";
-import Purchase from "./pages/Purchase.jsx";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Home from './pages/Home';
+import Catalog from './pages/Catalog';
+import Cart from './pages/Cart';
+import Auth from './pages/Auth';
+import Admin from './pages/Admin';
+import './App.css';
 
 function App() {
-  const theme = useSelector((state) => state.ui?.theme || "light");
+  const [theme, setTheme] = useState('light');
+  const { isAdmin, isAuth, user } = useSelector(state => state.auth);
+  const cartItems = useSelector(state => state.cart.items);
 
   useEffect(() => {
-    // Убираем предыдущие классы темы и добавляем новую
-    document.body.classList.remove("light", "dark");
-    document.body.classList.add(theme);
+    document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
 
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<PoniesList />} />
-        <Route path="/ponies/:id" element={<PonyDetail />} />
-        <Route path="/todos" element={<TodosList />} />
-        <Route path="/todos/:id" element={<TodoDetail />} />
-        <Route path="/counter" element={<Counter />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/purchase" element={<Purchase />} />
-        {/* Если хотите добавить Home, раскомментируйте: */}
-        {/* <Route path="/home" element={<Home />} /> */}
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <Router>
+      <div className="app-container">
+        <header className="header">
+          <Link to="/" style={{textDecoration: 'none'}}><h1 className="logo">TastyTreats</h1></Link>
+          
+          <nav className="nav-links">
+            <Link to="/">Главная</Link>
+            <Link to="/catalog">Бутик</Link>
+            <Link to="/cart">Корзина ({cartItems.length})</Link>
+            
+            {/* Показываем админку только если isAdmin === true */}
+            {isAdmin && <Link to="/admin" style={{color: '#d4af37'}}>Админка</Link>}
+            
+            <Link to="/auth">
+              {isAuth ? `👤 ${user.username}` : 'Войти'}
+            </Link>
+
+            <button className="btn-icon" onClick={toggleTheme}>
+              {theme === 'light' ? '🌙' : '☀️'}
+            </button>
+          </nav>
+        </header>
+
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/catalog" element={<Catalog />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/auth" element={<Auth />} />
+            {isAdmin && <Route path="/admin" element={<Admin />} />}
+          </Routes>
+        </main>
+
+        <footer className="footer">
+          <div style={{marginBottom: '10px'}}>
+             <strong>TastyTreats Premium Desserts</strong>
+          </div>
+          <p>+996 (773) 956-057</p>
+          <p>talipova_k@iuca.kg</p>
+          <p style={{fontSize: '10px', marginTop: '15px', opacity: 0.6}}>© 2026 Все права защищены</p>
+        </footer>
+      </div>
+    </Router>
   );
 }
 

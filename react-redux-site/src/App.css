@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;600&display=swap');
+
+:root {
+  --bg-color: #f9f9f9;
+  --text-color: #2c2c2c;
+  --accent-color: #d4af37; /* Золотой */
+  --accent-hover: #b5952f;
+  --card-bg: #ffffff;
+  --border-color: #eaeaea;
+}
+
+[data-theme='dark'] {
+  --bg-color: #121212;
+  --text-color: #f4f4f4;
+  --accent-color: #e5c158;
+  --accent-hover: #f1d37a;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header & Nav */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logo { margin: 0; color: var(--accent-color); font-size: 2rem; letter-spacing: 2px;}
+
+.nav-links { display: flex; gap: 20px; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--text-color); font-weight: 600; transition: color 0.2s;}
+.nav-links a:hover { color: var(--accent-color); }
+
+.btn-icon { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 12px; cursor: pointer; border-radius: 5px; transition: 0.3s;}
+.btn-icon:hover { border-color: var(--accent-color); color: var(--accent-color); }
+
+/* Pages & Components */
+.main-content { flex: 1; padding: 40px 50px; max-width: 1200px; margin: 0 auto; width: 100%; box-sizing: border-box;}
+
+.hero { text-align: center; margin-bottom: 50px; }
+.hero img { width: 100%; max-height: 400px; object-fit: cover; border-radius: 10px; margin-top: 20px; }
+
+.search-input { width: 100%; max-width: 400px; padding: 12px 20px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); border-radius: 30px; margin-bottom: 30px; outline: none; }
+
+.product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+.product-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+.product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+.product-img { width: 100%; height: 250px; object-fit: cover; }
+.product-info { padding: 20px; text-align: center; }
+.product-price { color: var(--accent-color); font-size: 1.2rem; font-weight: bold; margin: 10px 0; }
+
+.btn-gold { background: var(--accent-color); color: #fff; border: none; padding: 12px 25px; border-radius: 30px; cursor: pointer; font-weight: bold; width: 100%; transition: background 0.3s; }
+.btn-gold:hover { background: var(--accent-hover); }
+
+/* Cart & Auth */
+.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid var(--border-color); background: var(--card-bg); margin-bottom: 10px; border-radius: 8px;}
+.cart-total { text-align: right; font-size: 1.5rem; margin-top: 20px; color: var(--accent-color); }
+.auth-form { max-width: 400px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; background: var(--card-bg); padding: 30px; border-radius: 10px; border: 1px solid var(--border-color); }
+.auth-form input { padding: 12px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); border-radius: 5px; outline: none; }
+
+/* Footer */
+.footer { text-align: center; padding: 30px; background: var(--card-bg); border-top: 1px solid var(--border-color); margin-top: auto; }
+
+/* Добавь это к существующему App.css */
+.admin-panel { max-width: 800px; margin: 0 auto; }
+.admin-card { background: var(--card-bg); padding: 25px; border-radius: 12px; border: 1px solid var(--border-color); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.admin-form { display: flex; flex-direction: column; gap: 15px; }
+.admin-form input { padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); }
+.admin-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border-color); }
+.admin-item:last-child { border-bottom: none; }
+.auth-container { display: flex; justify-content: center; align-items: center; padding: 50px 0; }

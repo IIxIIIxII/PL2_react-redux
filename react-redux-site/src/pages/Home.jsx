@@ -1,23 +1,10 @@
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import "../styles/home.css";
+import React from 'react';
 
-const Home = () => {
-    const theme = useSelector(state => state.ui.theme);
-    
-    useEffect(() => {
-        console.log("Тема изменилась:", theme);
-        document.body.className = theme;
-    }, [theme]);
-
-    console.log("Текущая тема в компоненте:", theme);
-
-    return (
-        <main className="home container">
-            <h2>Главная страница</h2>
-            <p>Добро пожаловать</p>
-        </main>
-    )
-};
-
+const Home = () => (
+  <div className="hero">
+    <h1>TastyTreats</h1>
+    <p>Искусство высокой кондитерии. Мы создаем шедевры, которые дарят незабываемые вкусовые ощущения.</p>
+    <img src="https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=1200&q=80" alt="Premium Bakery" />
+  </div>
+);
 export default Home;
